@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CVSS Calculator — SOC Toolkit</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+.opts{display:flex;gap:8px;flex-wrap:wrap;}
+.opt{background:var(--panel2);border:1px solid var(--border);padding:8px 14px;border-radius:4px;font-family:var(--mono);font-size:12px;cursor:pointer;color:var(--muted);}
+.opt.active{background:var(--accent);color:#1a1200;border-color:var(--accent);font-weight:bold;}
+.metric-group{margin-bottom:16px;}
+.metric-name{font-size:13px;margin-bottom:8px;font-weight:600;}
+.vector{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:14px;word-break:break-all;background:var(--panel2);padding:10px;border-radius:4px;border:1px solid var(--border);text-align:center;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">SEC-TOOLKIT / <b>cvss-calculator</b></div>
+  <div class="status">CVSS v3.1 · SERVER-SIDE</div>
+</div>
+<div class="wrap">
+  <h1>CVSS v3.1 Base Score Calculator</h1>
+  <div class="sub">Score is computed in Python on the server using the official FIRST.org formula. Select metrics and submit.</div>
+
+  <form method="POST" id="cvssForm">
+    <div class="panel">
+      <div class="score-num sev-{{ severity.lower() }}">{{ "%.1f"|format(score) }}</div>
+      <div class="score-label sev-{{ severity.lower() }}">{{ severity }}</div>
+      <div class="vector">{{ vector }}</div>
+    </div>
+
+    <div class="panel">
+      <h2>EXPLOITABILITY METRICS</h2>
+
+      <div class="metric-group">
+        <div class="metric-name">Attack Vector (AV)</div>
+        <div class="opts">
+          {% for val, label in [('N','Network'),('A','Adjacent'),('L','Local'),('P','Physical')] %}
+          <div class="opt {{ 'active' if metrics.AV==val }}" onclick="pick('AV','{{val}}')">{{ label }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="metric-group">
+        <div class="metric-name">Attack Complexity (AC)</div>
+        <div class="opts">
+          {% for val, label in [('L','Low'),('H','High')] %}
+          <div class="opt {{ 'active' if metrics.AC==val }}" onclick="pick('AC','{{val}}')">{{ label }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="metric-group">
+        <div class="metric-name">Privileges Required (PR)</div>
+        <div class="opts">
+          {% for val, label in [('N','None'),('L','Low'),('H','High')] %}
+          <div class="opt {{ 'active' if metrics.PR==val }}" onclick="pick('PR','{{val}}')">{{ label }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="metric-group">
+        <div class="metric-name">User Interaction (UI)</div>
+        <div class="opts">
+          {% for val, label in [('N','None'),('R','Required')] %}
+          <div class="opt {{ 'active' if metrics.UI==val }}" onclick="pick('UI','{{val}}')">{{ label }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="metric-group">
+        <div class="metric-name">Scope (S)</div>
+        <div class="opts">
+          {% for val, label in [('U','Unchanged'),('C','Changed')] %}
+          <div class="opt {{ 'active' if metrics.S==val }}" onclick="pick('S','{{val}}')">{{ label }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>IMPACT METRICS</h2>
+      {% for metric, name in [('C','Confidentiality'),('I','Integrity'),('A','Availability')] %}
+      <div class="metric-group">
+        <div class="metric-name">{{ name }} ({{ metric }})</div>
+        <div class="opts">
+          {% for val, label in [('H','High'),('L','Low'),('N','None')] %}
+          <div class="opt {{ 'active' if metrics[metric]==val }}" onclick="pick('{{metric}}','{{val}}')">{{ label }}</div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <input type="hidden" name="AV" id="f_AV" value="{{ metrics.AV }}">
+    <input type="hidden" name="AC" id="f_AC" value="{{ metrics.AC }}">
+    <input type="hidden" name="PR" id="f_PR" value="{{ metrics.PR }}">
+    <input type="hidden" name="UI" id="f_UI" value="{{ metrics.UI }}">
+    <input type="hidden" name="S" id="f_S" value="{{ metrics.S }}">
+    <input type="hidden" name="C" id="f_C" value="{{ metrics.C }}">
+    <input type="hidden" name="I" id="f_I" value="{{ metrics.I }}">
+    <input type="hidden" name="A" id="f_A" value="{{ metrics.A }}">
+  </form>
+
+  <div class="footer-note">Environmental and Temporal metrics are not included — Base Score only.</div>
+</div>
+
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>

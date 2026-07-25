@@ -1,0 +1,237 @@
+/* ============================================================
+   SEC-TOOLKIT — "Case File" design system
+   Paper + ink report aesthetic, not the generic dark-hacker theme.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --paper:#E7E4DA;
+  --paper-dark:#DCD8CB;
+  --card:#F3F1E9;
+  --ink:#1C1D18;
+  --ink-soft:#5B5B50;
+  --line:#C7C2AF;
+  --stamp-red:#A6332C;
+  --stamp-green:#2E5E4E;
+  --stamp-amber:#9C6B1F;
+  --tab:#C9A968;
+  --display:'Special Elite', 'Courier New', monospace;
+  --sans:'IBM Plex Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono:'IBM Plex Mono', 'Courier New', monospace;
+
+  /* Legacy variable names (still referenced by a few per-page <style> blocks) */
+  --bg:var(--paper);
+  --panel:var(--card);
+  --panel2:var(--paper);
+  --border:var(--ink);
+  --text:var(--ink);
+  --muted:var(--ink-soft);
+  --accent:var(--stamp-amber);
+  --accent2:var(--stamp-green);
+  --danger:var(--stamp-red);
+  --ok:var(--stamp-green);
+}
+*{box-sizing:border-box;}
+body{
+  background:
+    radial-gradient(ellipse at top left, rgba(0,0,0,0.03), transparent 60%),
+    var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  margin:0;
+}
+
+.topbar{
+  background:var(--tab);
+  border-bottom:3px solid var(--ink);
+  padding:14px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.brand{
+  font-family:var(--display);
+  font-size:13px;
+  color:var(--ink);
+  letter-spacing:0.5px;
+}
+.brand b{ text-decoration:underline; text-decoration-style:wavy; }
+.status{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--ink);
+  background:var(--card);
+  border:1px solid var(--ink);
+  padding:3px 10px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.wrap{max-width:920px;margin:0 auto;padding:44px 24px 90px;}
+
+h1{
+  font-family:var(--display);
+  font-size:30px;
+  margin:0 0 4px;
+  color:var(--ink);
+  letter-spacing:0.5px;
+}
+.sub{
+  color:var(--ink-soft);
+  font-size:14px;
+  margin-bottom:30px;
+  line-height:1.6;
+  max-width:640px;
+  border-left:2px solid var(--line);
+  padding-left:12px;
+}
+
+.panel{
+  background:var(--card);
+  border:1px solid var(--ink);
+  box-shadow:3px 3px 0 rgba(28,29,24,0.12);
+  padding:26px;
+  margin-bottom:22px;
+  position:relative;
+}
+h2{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--ink-soft);
+  margin:0 0 16px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  border-bottom:1px dashed var(--line);
+  padding-bottom:8px;
+}
+
+label{
+  display:block;
+  font-size:11px;
+  color:var(--ink-soft);
+  font-family:var(--mono);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  margin-bottom:6px;
+}
+input,select,textarea{
+  width:100%;
+  background:var(--paper);
+  border:1px solid var(--ink);
+  color:var(--ink);
+  padding:10px 12px;
+  border-radius:0;
+  font-family:var(--mono);
+  font-size:14px;
+}
+input:focus,select:focus,textarea:focus{
+  outline:2px solid var(--stamp-amber);
+  outline-offset:1px;
+}
+textarea{resize:vertical;}
+
+button{
+  background:var(--ink);
+  color:var(--card);
+  border:none;
+  padding:11px 20px;
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:12px;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:0;
+}
+button:hover{ background:var(--stamp-red); }
+button.secondary{
+  background:transparent;
+  color:var(--ink);
+  border:1px solid var(--ink);
+}
+button.secondary:hover{ background:var(--paper-dark); color:var(--ink); }
+button.danger{
+  background:transparent; color:var(--stamp-red); border:1px solid var(--stamp-red);
+  padding:5px 10px; font-size:10px;
+}
+
+.row{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0;}
+.col{flex:1;min-width:160px;}
+
+table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;}
+th{
+  text-align:left;color:var(--ink-soft);font-weight:600;padding:8px;
+  border-bottom:2px solid var(--ink);text-transform:uppercase;font-size:10px;letter-spacing:0.5px;
+}
+td{padding:9px 8px;border-bottom:1px solid var(--line);}
+
+.output{
+  margin-top:16px;background:var(--paper);border:1px solid var(--ink);
+  padding:14px;font-family:var(--mono);font-size:13px;word-break:break-word;white-space:pre-wrap;
+}
+
+.stamp-panel{ text-align:center; padding:38px 24px; }
+.stamp{
+  display:inline-block;
+  border:3px solid currentColor;
+  padding:10px 26px;
+  font-family:var(--display);
+  font-size:30px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transform:rotate(-4deg);
+  border-radius:4px;
+  position:relative;
+}
+.stamp::before{
+  content:'';
+  position:absolute; inset:4px;
+  border:1px solid currentColor;
+  border-radius:2px;
+  opacity:0.5;
+}
+.stamp-sub{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-top:14px;
+  letter-spacing:1px;
+}
+.score-num{ font-family:var(--display); text-align:center; }
+.score-label{ font-family:var(--mono); text-align:center; letter-spacing:2px; text-transform:uppercase; margin-top:6px; }
+.r-low,.sev-low,.sev-none{ color:var(--stamp-green); }
+.r-medium,.sev-medium{ color:var(--stamp-amber); }
+.r-high,.sev-high,.sev-critical{ color:var(--stamp-red); }
+
+.badge{
+  font-family:var(--mono);
+  font-size:10px;
+  padding:3px 9px;
+  border:1.5px solid currentColor;
+  font-weight:700;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  display:inline-block;
+}
+.badge.allow,.badge.ok,.badge.pass{ color:var(--stamp-green); }
+.badge.deny,.badge.bad,.badge.fail{ color:var(--stamp-red); }
+.badge.warn{ color:var(--stamp-amber); }
+
+ul.list{list-style:none;padding:0;margin:0;}
+ul.list li{
+  padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;
+  font-family:var(--mono);display:flex;gap:10px;
+}
+ul.list li:last-child{border:none;}
+
+.footer-note{
+  color:var(--ink-soft);font-size:12px;margin-top:26px;line-height:1.7;
+  font-family:var(--mono);border-top:1px dashed var(--line);padding-top:16px;
+}
+.flash{
+  padding:12px;border:1.5px solid var(--stamp-red);color:var(--stamp-red);
+  font-family:var(--mono);font-size:13px;margin-bottom:16px;
+}
+
+.bar{height:12px;background:var(--paper);border:1px solid var(--ink);overflow:hidden;margin:16px 0 8px;}
+.bar-fill{height:100%;}
